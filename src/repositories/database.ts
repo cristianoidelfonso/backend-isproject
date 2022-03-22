@@ -9,17 +9,32 @@ const SQL_ITENS_CREATE = `
         descricao TEXT
     )`
 
+const SQL_CATEGORIES_CREATE = `
+    CREATE TABLE IF NOT EXISTS categories (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT
+    )`
+
 const database = new sqlite3.Database(DBSOURCE, (err) => {
     if (err) {
         console.error(err.message)
         throw err
     } else {
         console.log('Base de dados conectada com sucesso.')
+        
         database.run(SQL_ITENS_CREATE, (err) => {
             if (err) {
                 // Possivelmente a tabela já foi criada
             } else {
-                console.log('Tabela itens criada com sucesso.')
+                console.log('Tabelas [itens, categories] criadas com sucesso.')
+            }
+        })
+
+        database.run(SQL_CATEGORIES_CREATE, (err) => {
+            if (err) {
+                // Possivelmente a tabela já foi criada
+            } else {
+                console.log('Tabelas [itens, categories] criadas com sucesso.')
             }
         })
     }

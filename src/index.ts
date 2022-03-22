@@ -1,40 +1,43 @@
-import express from 'express'
-import cors from 'cors'
+import express from 'express';
+import cors from 'cors';
 
-import itensRouter from './routers/itens.router'
+import itensRouter from './routers/itens.router';
+import categoriesRouter from './routers/categories.router';
 
 // Porta do servidor
-const PORT = process.env.PORT || 4000
+const PORT = process.env.PORT || 4000;
 
 // Host do servidor
-const HOSTNAME = process.env.HOSTNAME || 'http://localhost'
+const HOSTNAME = process.env.HOSTNAME || 'http://localhost';
 
 // App Express
-const app = express()
+const app = express();
 
 // JSON
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }))
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // Endpoint raiz
 app.get('/', (req, res) => {
-    res.send('Bem-vindo!')
-})
+    res.send('Bem-vindo!');
+});
 
 // Cors
 app.use(cors({
     origin: ['http://localhost:3000']
-}))
+  }
+));
 
 // Rotas
-app.use('/api', itensRouter)
+app.use('/api', itensRouter);
+app.use('/api', categoriesRouter);
 
 // Resposta padrão para quaisquer outras requisições:
 app.use((req, res) => {
-    res.status(404)
-})
+    res.status(404);
+});
 
 // Inicia o sevidor
 app.listen(PORT, () => {
-    console.log(`Servidor rodando com sucesso ${HOSTNAME}:${PORT}`)
-})
+    console.log(`Servidor rodando com sucesso ${HOSTNAME}:${PORT}`);
+});

@@ -3,4 +3,4 @@ type Item = {
   nome: string
   descricao: string
 }
-export default Item
+export default Item;
